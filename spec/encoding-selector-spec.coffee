@@ -34,7 +34,8 @@ describe "EncodingSelector", ->
       encodingView = atom.workspaceView.find('.encoding-selector').view()
       expect(encodingView).toExist()
       encodings = require('../lib/encodings')
-      expect(encodingView.list.children('li').length).toBe Object.keys(encodings).length
+      expectedItemCount = Object.keys(encodings).length + 1 # Include Auto Detect
+      expect(encodingView.list.children('li').length).toBe expectedItemCount
 
   describe "when an encoding is selected", ->
     it "sets the new encoding on the editor", ->
