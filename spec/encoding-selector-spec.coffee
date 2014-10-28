@@ -44,6 +44,27 @@ describe "EncodingSelector", ->
       encodingView.confirmed(id: 'utf16le')
       expect(editor.getEncoding()).toBe 'utf16le'
 
+  describe "when Auto Detect is selected", ->
+    it "detects the character set and applies that encoding", ->
+      encodingChangeHandler = jasmine.createSpy('encodingChangeHandler')
+      editor.onDidChangeEncoding(encodingChangeHandler)
+      editor.setEncoding('utf16le')
+
+      waitsFor ->
+        encodingChangeHandler.callCount is 1
+
+      runs ->
+        editorView.trigger 'encoding-selector:show'
+        encodingView = atom.workspaceView.find('.encoding-selector').view()
+        encodingView.confirmed(id: 'detect')
+        encodingChangeHandler.reset()
+
+      waitsFor ->
+        encodingChangeHandler.callCount is 1
+
+      runs ->
+        expect(editor.getEncoding()).toBe 'utf8'
+
   describe "encoding label", ->
     [encodingStatus] = []
 
