@@ -1,4 +1,4 @@
-grammarStatusView = null
+encodingStatusView = null
 
 module.exports =
   activate: ->
@@ -6,7 +6,7 @@ module.exports =
     atom.packages.once('activated', createEncodingStatusView)
 
   deactivate: ->
-    grammarStatusView?.destroy()
+    encodingStatusView?.destroy()
 
 createEncodingListView = ->
   editor = atom.workspace.getActiveEditor()
