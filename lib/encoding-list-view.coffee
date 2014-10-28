@@ -51,7 +51,6 @@ class EncodingListView extends SelectListView
       return unless iconv.encodingExists(encoding)
 
       encoding = encoding.toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, '')
-      console.log 'setting', encoding
       @editor.setEncoding(encoding)
 
   confirmed: (encoding) ->
