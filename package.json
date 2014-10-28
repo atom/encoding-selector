@@ -1,6 +1,6 @@
 {
   "name": "encoding-selector",
-  "version": "0.35.0",
+  "version": "0.0.0",
   "main": "./lib/main",
   "description": "Select the encoding to use for the current editor with `ctrl-shift-L`.",
   "license": "MIT",
