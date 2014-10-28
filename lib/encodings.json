@@ -132,11 +132,11 @@
     "status": "Shift JIS"
   },
   "eucjp": {
-    "list":   "EUC Japanese (EUC-JP)",
+    "list":   "Japanese (EUC-JP)",
     "status": "EUC-JP"
   },
   "euckr": {
-    "list":   "EUC Korean (EUC-KR)",
+    "list":   "Korean (EUC-KR)",
     "status": "EUC-KR"
   }
 }
