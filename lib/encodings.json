@@ -126,5 +126,17 @@
   "gbk": {
     "list": "Guojia Biaozhun Kuozhan (GBK)",
     "status": "GBK"
+  },
+  "shiftjis": {
+    "list": "Shift JIS",
+    "status": "Shift JIS"
+  },
+  "eucjp": {
+    "list":   "EUC Japanese (EUC-JP)",
+    "status": "EUC-JP"
+  },
+  "euckr": {
+    "list":   "EUC Korean (EUC-KR)",
+    "status": "EUC-KR"
   }
 }
