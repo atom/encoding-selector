@@ -29,7 +29,7 @@ describe "EncodingSelector", ->
       {editor} = editorView
 
   describe "when encoding-selector:show is triggered", ->
-    it "displays a list of all the available grammars", ->
+    it "displays a list of all the available encodings", ->
       editorView.trigger 'encoding-selector:show'
       encodingView = atom.workspaceView.find('.encoding-selector').view()
       expect(encodingView).toExist()
