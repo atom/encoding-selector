@@ -1,3 +1,5 @@
+Encodings = require './encodings'
+
 # View to show the encoding name in the status bar.
 class EncodingStatusView extends HTMLElement
   initialize: (@statusBar) ->
@@ -42,7 +44,7 @@ class EncodingStatusView extends HTMLElement
   updateEncodingText: ->
     encoding = @getActiveTextEditor()?.getEncoding()
     if encoding?
-      @encodingLink.textContent = encoding
+      @encodingLink.textContent = Encodings[encoding]?.status ? encoding
       @encodingLink.dataset.encoding = encoding
       @style.display = ''
     else

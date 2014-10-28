@@ -1,4 +1,6 @@
+Encodings = require './encodings'
 {SelectListView} = require 'atom'
+
 
 # View to display a list of encodings to use in the current editor.
 module.exports =
@@ -15,7 +17,10 @@ class EncodingListView extends SelectListView
       @cancel()
       false
 
-    @setItems(@getEncodings())
+    encodings = []
+    for id, names of Encodings
+      encodings.push({id, name: names.list})
+    @setItems(encodings)
 
   getFilterKey: ->
     'name'
@@ -35,15 +40,3 @@ class EncodingListView extends SelectListView
     @storeFocusedElement()
     atom.workspaceView.append(this)
     @focusFilterEditor()
-
-  getEncodings: ->
-    [
-      {
-        id: 'utf8'
-        name: 'UTF-8'
-      }
-      {
-        id: 'win1251'
-        name: 'Cyrillic (Windows 1251)'
-      }
-    ]
