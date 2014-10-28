@@ -11,7 +11,7 @@
     "list":   "UTF-16 BE",
     "status": "UTF-16 BE"
   },
-  "win1250":   {
+  "windows1250":   {
     "list":  "Western (Windows 1250)",
     "status": "Windows 1250"
   },
@@ -35,7 +35,7 @@
     "list":   "DOS (CP 437)",
     "status": "CP437"
   },
-  "win1256":   {
+  "windows1256":   {
     "list":   "Arabic (Windows 1256)",
     "status": "Windows 1256"
   },
@@ -43,7 +43,7 @@
     "list":   "Arabic (ISO 8859-6)",
     "status": "ISO 8859-6"
   },
-  "win1257":   {
+  "windows1257":   {
     "list":   "Baltic (Windows 1257)",
     "status": "Windows 1257"
   },
@@ -55,7 +55,7 @@
     "list":   "Celtic (ISO 8859-14)",
     "status": "ISO 8859-14"
   },
-  "win1250":   {
+  "windows1250":   {
     "list":   "Central European (Windows 1250)",
     "status": "Windows 1250"
   },
@@ -63,11 +63,11 @@
     "list":   "Central European (ISO 8859-2)",
     "status": "ISO 8859-2"
   },
-  "win1251":   {
+  "windows1251":   {
     "list":   "Cyrillic (Windows 1251)",
     "status": "Windows 1251"
   },
-  "win866":    {
+  "windows866":    {
     "list":   "Cyrillic (Windows 866)",
     "status": "Windows 866"
   },
@@ -87,7 +87,7 @@
     "list":   "Estonian (ISO 8859-13)",
     "status": "ISO 8859-13"
   },
-  "win1253":   {
+  "windows1253":   {
     "list":   "Greek (Windows 1253)",
     "status": "Windows 1253"
   },
@@ -95,7 +95,7 @@
     "list":   "Greek (ISO 8859-7)",
     "status": "ISO 8859-7"
   },
-  "win1255":   {
+  "windows1255":   {
     "list":   "Hebrew (Windows 1255)",
     "status": "Windows 1255"
   },
@@ -111,7 +111,7 @@
     "list":   "Romanian (ISO 8859-16)",
     "status": "ISO 8859-16"
   },
-  "win1254":   {
+  "windows1254":   {
     "list":   "Turkish (Windows 1254)",
     "status": "Windows 1254"
   },
@@ -119,7 +119,7 @@
     "list":   "Turkish (ISO 8859-9)",
     "status": "ISO 8859-9"
   },
-  "win1258":   {
+  "windows1258":   {
     "list":   "Vietnamese (Windows 1254)",
     "status": "Windows 1254"
   }
