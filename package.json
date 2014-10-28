@@ -9,7 +9,7 @@
     "atom": "*"
   },
   "dependencies": {
-    "chardet": "0.0.8",
-    "iconv-lite": "^0.4.4"
+    "iconv-lite": "^0.4.4",
+    "jschardet": "^1.1.0"
   }
 }

@@ -40,10 +40,13 @@ class EncodingListView extends SelectListView
   detectEncoding: ->
     filePath = @editor.getPath()
     if fs.existsSync(filePath)
-      chardet = require 'chardet'
+      jschardet = require 'jschardet'
       iconv = require 'iconv-lite'
-      chardet.detectFile filePath, (error, encoding) =>
+      fs.readFile filePath, (error, buffer) =>
         return if error?
+
+        {encoding} =  jschardet.detect(buffer) ? {}
+        encoding = 'utf8' if encoding is 'ascii'
         return unless iconv.encodingExists(encoding)
 
         encoding = encoding.toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, '')
