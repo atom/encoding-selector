@@ -44,6 +44,7 @@ class EncodingStatusView extends HTMLElement
   updateEncodingText: ->
     encoding = @getActiveTextEditor()?.getEncoding()
     if encoding?
+      encoding = encoding.toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, '')
       @encodingLink.textContent = Encodings[encoding]?.status ? encoding
       @encodingLink.dataset.encoding = encoding
       @style.display = ''
