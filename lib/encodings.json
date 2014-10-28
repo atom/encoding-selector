@@ -122,5 +122,9 @@
   "windows1258":   {
     "list":   "Vietnamese (Windows 1254)",
     "status": "Windows 1254"
+  },
+  "gbk": {
+    "list": "Guojia Biaozhun Kuozhan (GBK)",
+    "status": "GBK"
   }
 }
