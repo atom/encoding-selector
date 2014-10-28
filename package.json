@@ -2,7 +2,7 @@
   "name": "encoding-selector",
   "version": "0.0.0",
   "main": "./lib/main",
-  "description": "Select the encoding to use for the current editor with `ctrl-shift-L`.",
+  "description": "Select the encoding to use for the current editor with `ctrl-shift-U`.",
   "license": "MIT",
   "repository": "https://github.com/atom/encoding-selector",
   "engines": {
