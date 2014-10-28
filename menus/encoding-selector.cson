@@ -1,0 +1,7 @@
+'menu': [
+  'label': 'Edit'
+  'submenu': [
+    'label': 'Select Encoding'
+    'command': 'encoding-selector:show'
+  ]
+]
