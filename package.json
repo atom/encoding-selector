@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": "https://github.com/atom/encoding-selector",
   "engines": {
-    "atom": "*"
+    "atom": ">=0.141.0"
   },
   "dependencies": {
     "iconv-lite": "^0.4.4",
