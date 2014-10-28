@@ -7,5 +7,9 @@
   "repository": "https://github.com/atom/encoding-selector",
   "engines": {
     "atom": "*"
+  },
+  "dependencies": {
+    "chardet": "0.0.8",
+    "iconv-lite": "^0.4.4"
   }
 }
