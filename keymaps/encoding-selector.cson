@@ -1,0 +1,8 @@
+'.platform-darwin .editor':
+  'ctrl-shift-u': 'encoding-selector:show'
+
+'.platform-win32 .editor':
+  'ctrl-shift-u': 'encoding-selector:show'
+
+'.platform-linux .editor':
+  'ctrl-shift-u': 'encoding-selector:show'
