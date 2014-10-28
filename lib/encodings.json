@@ -3,23 +3,23 @@
     "list":   "UTF-8",
     "status": "UTF-8"
   },
-  "utf16le":   {
+  "utf16le": {
     "list":   "UTF-16 LE",
     "status": "UTF-16 LE"
   },
-  "utf16be":   {
+  "utf16be": {
     "list":   "UTF-16 BE",
     "status": "UTF-16 BE"
   },
-  "windows1250":   {
+  "windows1250": {
     "list":  "Western (Windows 1250)",
     "status": "Windows 1250"
   },
-  "iso88591":  {
+  "iso88591": {
     "list":   "Western (ISO 8859-1)",
     "status": "ISO 8859-1"
   },
-  "iso88593":  {
+  "iso88593": {
     "list":   "Western (ISO 8859-3)",
     "status": "ISO 8859-3"
   },
@@ -27,27 +27,27 @@
     "list":   "Western (ISO 8859-15)",
     "status": "ISO 8859-15"
   },
-  "macroman":  {
+  "macroman": {
     "list":   "Western (Mac Roman)",
     "status": "Mac Roman"
   },
-  "cp437":     {
+  "cp437": {
     "list":   "DOS (CP 437)",
     "status": "CP437"
   },
-  "windows1256":   {
+  "windows1256": {
     "list":   "Arabic (Windows 1256)",
     "status": "Windows 1256"
   },
-  "iso88596":  {
+  "iso88596": {
     "list":   "Arabic (ISO 8859-6)",
     "status": "ISO 8859-6"
   },
-  "windows1257":   {
+  "windows1257": {
     "list":   "Baltic (Windows 1257)",
     "status": "Windows 1257"
   },
-  "iso88594":  {
+  "iso88594": {
     "list":   "Baltic (ISO 8859-4)",
     "status": "ISO 8859-4"
   },
@@ -55,31 +55,31 @@
     "list":   "Celtic (ISO 8859-14)",
     "status": "ISO 8859-14"
   },
-  "windows1250":   {
+  "windows1250": {
     "list":   "Central European (Windows 1250)",
     "status": "Windows 1250"
   },
-  "iso88592":  {
+  "iso88592": {
     "list":   "Central European (ISO 8859-2)",
     "status": "ISO 8859-2"
   },
-  "windows1251":   {
+  "windows1251": {
     "list":   "Cyrillic (Windows 1251)",
     "status": "Windows 1251"
   },
-  "windows866":    {
+  "windows866": {
     "list":   "Cyrillic (Windows 866)",
     "status": "Windows 866"
   },
-  "iso88595":  {
+  "iso88595": {
     "list":   "Cyrillic (ISO 8859-5)",
     "status": "ISO 8859-5"
   },
-  "koi8r":     {
+  "koi8r": {
     "list":   "Cyrillic (KOI8-R)",
     "status": "KOI8-R"
   },
-  "koi8u":     {
+  "koi8u": {
     "list":   "Cyrillic (KOI8-U)",
     "status": "KOI8-U"
   },
@@ -87,19 +87,19 @@
     "list":   "Estonian (ISO 8859-13)",
     "status": "ISO 8859-13"
   },
-  "windows1253":   {
+  "windows1253": {
     "list":   "Greek (Windows 1253)",
     "status": "Windows 1253"
   },
-  "iso88597":  {
+  "iso88597": {
     "list":   "Greek (ISO 8859-7)",
     "status": "ISO 8859-7"
   },
-  "windows1255":   {
+  "windows1255": {
     "list":   "Hebrew (Windows 1255)",
     "status": "Windows 1255"
   },
-  "iso88598":  {
+  "iso88598": {
     "list":   "Hebrew (ISO 8859-8)",
     "status": "ISO 8859-8"
   },
@@ -111,15 +111,15 @@
     "list":   "Romanian (ISO 8859-16)",
     "status": "ISO 8859-16"
   },
-  "windows1254":   {
+  "windows1254": {
     "list":   "Turkish (Windows 1254)",
     "status": "Windows 1254"
   },
-  "iso88597":  {
+  "iso88597": {
     "list":   "Turkish (ISO 8859-9)",
     "status": "ISO 8859-9"
   },
-  "windows1258":   {
+  "windows1258": {
     "list":   "Vietnamese (Windows 1254)",
     "status": "Windows 1254"
   },
@@ -128,7 +128,7 @@
     "status": "GBK"
   },
   "shiftjis": {
-    "list": "Shift JIS",
+    "list":   "Shift JIS",
     "status": "Shift JIS"
   },
   "eucjp": {
