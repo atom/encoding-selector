@@ -1,8 +1,6 @@
-Encodings = require './encodings'
-
 # View to show the encoding name in the status bar.
 class EncodingStatusView extends HTMLElement
-  initialize: (@statusBar) ->
+  initialize: (@statusBar, @encodings) ->
     @classList.add('encoding-status', 'inline-block')
     @encodingLink = document.createElement('a')
     @encodingLink.classList.add('inline-block')
@@ -45,7 +43,7 @@ class EncodingStatusView extends HTMLElement
     encoding = @getActiveTextEditor()?.getEncoding()
     if encoding?
       encoding = encoding.toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, '')
-      @encodingLink.textContent = Encodings[encoding]?.status ? encoding
+      @encodingLink.textContent = @encodings[encoding]?.status ? encoding
       @encodingLink.dataset.encoding = encoding
       @style.display = ''
     else

@@ -1,12 +1,10 @@
 fs = require 'fs'
 {SelectListView} = require 'atom'
-Encodings = require './encodings'
-
 
 # View to display a list of encodings to use in the current editor.
 module.exports =
 class EncodingListView extends SelectListView
-  initialize: (@editor) ->
+  initialize: (@editor, encodings) ->
     super
 
     @addClass('encoding-selector from-top overlay')
@@ -18,14 +16,14 @@ class EncodingListView extends SelectListView
       @cancel()
       false
 
-    encodings = []
+    encodingItems = []
 
     if fs.existsSync(@editor.getPath())
-      encodings.push({id: 'detect', name: 'Auto Detect'})
+      encodingItems.push({id: 'detect', name: 'Auto Detect'})
 
-    for id, names of Encodings
-      encodings.push({id, name: names.list})
-    @setItems(encodings)
+    for id, names of encodings
+      encodingItems.push({id, name: names.list})
+    @setItems(encodingItems)
 
   getFilterKey: ->
     'name'
