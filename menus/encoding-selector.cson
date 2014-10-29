@@ -5,3 +5,9 @@
     'command': 'encoding-selector:show'
   ]
 ]
+
+'context-menu':
+  '.overlayer': [
+    'label': 'Change Encoding'
+    'command': 'encoding-selector:show'
+  ]
