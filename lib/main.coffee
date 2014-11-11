@@ -33,9 +33,9 @@ encodings =
   utf16be:
     list:   'UTF-16 BE'
     status: 'UTF-16 BE'
-  windows1250:
-    list:   'Western (Windows 1250)'
-    status: 'Windows 1250'
+  windows1252:
+    list:   'Western (Windows 1252)'
+    status: 'Windows 1252'
   iso88591:
     list:   'Western (ISO 8859-1)'
     status: 'ISO 8859-1'
