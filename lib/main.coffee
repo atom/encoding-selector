@@ -120,6 +120,15 @@ encodings =
   gbk:
     list:   'Chinese (GBK)'
     status: 'GBK'
+  gb18030:
+    list:   'Chinese (GB18030)'
+    status: 'GB18030'
+  cp950:
+    list:   'Traditional Chinese (Big5)'
+    status: 'Big5'
+  big5hkscs:
+    list:   'Traditional Chinese (Big5-HKSCS)'
+    status: 'Big5-HKSCS'
   shiftjis:
     list:   'Japanese (Shift JIS)'
     status: 'Shift JIS'
