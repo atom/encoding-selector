@@ -12,7 +12,7 @@ class EncodingListView extends SelectListView
 
     @currentEncoding = @editor.getEncoding()
 
-    @subscribe this, 'encoding-selector:show', =>
+    @on 'encoding-selector:show', =>
       @cancel()
       false
 
