@@ -1,5 +1,5 @@
 fs = require 'fs'
-{SelectListView} = require 'atom'
+{SelectListView} = require 'atom-space-pen-views'
 
 # View to display a list of encodings to use in the current editor.
 module.exports =
