@@ -13,9 +13,9 @@ class EncodingListView extends SelectListView
 
     @currentEncoding = @editor.getEncoding()
 
-    @on 'encoding-selector:show', =>
+    @commandSubscription = atom.commands.add @element, 'encoding-selector:show', (event) =>
       @cancel()
-      false
+      event.stopPropagation()
 
     encodingItems = []
 
@@ -28,6 +28,9 @@ class EncodingListView extends SelectListView
 
   getFilterKey: ->
     'name'
+
+  beforeRemove: ->
+    @commandSubscription.dispose()
 
   viewForItem: (encoding) ->
     element = document.createElement('li')
