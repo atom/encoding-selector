@@ -4,7 +4,7 @@ commandSubscription = null
 
 module.exports =
   activate: ->
-    commandSubscription = atom.commands.add('atom-workspace', 'encoding-selector:show', createEncodingListView)
+    commandSubscription = atom.commands.add('atom-text-editor', 'encoding-selector:show', createEncodingListView)
 
     if statusBar = document.querySelector('status-bar')
       createEncodingStatusView(statusBar)
