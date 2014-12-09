@@ -7,7 +7,8 @@ class EncodingListView extends SelectListView
   initialize: (@editor, encodings) ->
     super
 
-    @addClass('encoding-selector from-top overlay')
+    @panel = atom.workspace.addModalPanel(item: this, visible: false)
+    @addClass('encoding-selector')
     @list.addClass('mark-active')
 
     @currentEncoding = @editor.getEncoding()
@@ -51,6 +52,9 @@ class EncodingListView extends SelectListView
       encoding = encoding.toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, '')
       @editor.setEncoding(encoding)
 
+  cancelled: ->
+    @panel.hide()
+
   confirmed: (encoding) ->
     @cancel()
 
@@ -61,5 +65,5 @@ class EncodingListView extends SelectListView
 
   attach: ->
     @storeFocusedElement()
-    atom.workspaceView.append(this)
+    @panel.show()
     @focusFilterEditor()

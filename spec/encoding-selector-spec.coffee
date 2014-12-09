@@ -23,14 +23,14 @@ describe "EncodingSelector", ->
   describe "when encoding-selector:show is triggered", ->
     it "displays a list of all the available encodings", ->
       editorView.trigger 'encoding-selector:show'
-      encodingView = atom.workspaceView.find('.encoding-selector').view()
+      encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
       expect(encodingView).toExist()
       expect(encodingView.list.children('li').length).toBeGreaterThan 1
 
   describe "when an encoding is selected", ->
     it "sets the new encoding on the editor", ->
       editorView.trigger 'encoding-selector:show'
-      encodingView = atom.workspaceView.find('.encoding-selector').view()
+      encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
       encodingView.confirmed(id: 'utf16le')
       expect(editor.getEncoding()).toBe 'utf16le'
 
@@ -45,7 +45,7 @@ describe "EncodingSelector", ->
 
       runs ->
         editorView.trigger 'encoding-selector:show'
-        encodingView = atom.workspaceView.find('.encoding-selector').view()
+        encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
         encodingView.confirmed(id: 'detect')
         encodingChangeHandler.reset()
 
@@ -67,7 +67,6 @@ describe "EncodingSelector", ->
       expect(encodingStatus.encodingLink.textContent).toBe 'UTF-8'
 
     it "hides the label when the current encoding is null", ->
-      atom.workspaceView.attachToDom()
       spyOn(editor, 'getEncoding').andReturn null
       editor.setEncoding('utf16le')
 
@@ -82,7 +81,7 @@ describe "EncodingSelector", ->
     describe "when clicked", ->
       it "toggles the encoding-selector:show event", ->
         eventHandler = jasmine.createSpy('eventHandler')
-        atom.workspaceView.on 'encoding-selector:show', eventHandler
+        atom.commands.add('atom-workspace', 'encoding-selector:show', eventHandler)
         encodingStatus.click()
         expect(eventHandler).toHaveBeenCalled()
 

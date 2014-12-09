@@ -2,7 +2,7 @@ encodingStatusView = null
 
 module.exports =
   activate: ->
-    atom.workspaceView.command('encoding-selector:show', createEncodingListView)
+    atom.commands.add('atom-workspace', 'encoding-selector:show', createEncodingListView)
 
     if statusBar = document.querySelector('status-bar')
       createEncodingStatusView(statusBar)
