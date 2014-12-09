@@ -7,7 +7,7 @@
 ]
 
 'context-menu':
-  '.overlayer': [
+  'atom-text-editor': [
     'label': 'Change Encoding'
     'command': 'encoding-selector:show'
   ]
