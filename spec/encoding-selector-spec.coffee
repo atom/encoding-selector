@@ -22,14 +22,14 @@ describe "EncodingSelector", ->
 
   describe "when encoding-selector:show is triggered", ->
     it "displays a list of all the available encodings", ->
-      editorView.trigger 'encoding-selector:show'
+      atom.commands.dispatch(editorView, 'encoding-selector:show')
       encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
       expect(encodingView).toExist()
       expect(encodingView.list.children('li').length).toBeGreaterThan 1
 
   describe "when an encoding is selected", ->
     it "sets the new encoding on the editor", ->
-      editorView.trigger 'encoding-selector:show'
+      atom.commands.dispatch(editorView, 'encoding-selector:show')
       encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
       encodingView.confirmed(id: 'utf16le')
       expect(editor.getEncoding()).toBe 'utf16le'
@@ -44,7 +44,7 @@ describe "EncodingSelector", ->
         encodingChangeHandler.callCount is 1
 
       runs ->
-        editorView.trigger 'encoding-selector:show'
+        atom.commands.dispatch(editorView, 'encoding-selector:show')
         encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
         encodingView.confirmed(id: 'detect')
         encodingChangeHandler.reset()
