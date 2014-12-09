@@ -1,5 +1,5 @@
 # View to show the encoding name in the status bar.
-class EncodingStatusView extends HTMLElement
+class EncodingStatusView extends HTMLDivElement
   initialize: (@statusBar, @encodings) ->
     @classList.add('encoding-status', 'inline-block')
     @encodingLink = document.createElement('a')
@@ -15,8 +15,8 @@ class EncodingStatusView extends HTMLElement
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
       @subscribeToActiveTextEditor()
 
-    clickHandler = ->
-      atom.workspaceView.trigger('encoding-selector:show')
+    clickHandler = =>
+      atom.commands.dispatch(atom.views.getView(@getActiveTextEditor()), 'encoding-selector:show')
       false
     @addEventListener('click', clickHandler)
     @clickSubscription = dispose: => @removeEventListener('click', clickHandler)
@@ -49,4 +49,4 @@ class EncodingStatusView extends HTMLElement
     else
       @style.display = 'none'
 
-module.exports = document.registerElement('encoding-selector-status', prototype: EncodingStatusView.prototype, extends: 'div')
+module.exports = document.registerElement('encoding-selector-status', prototype: EncodingStatusView.prototype)

@@ -1,22 +1,14 @@
 path = require 'path'
-{$, WorkspaceView, View} = require 'atom'
-
-class StatusBarMock extends View
-  @content: ->
-    @div class: 'status-bar tool-panel panel-bottom', =>
-      @div outlet: 'rightPanel', class: 'status-bar-right'
-
-  attach: ->
-    atom.workspaceView.appendToTop(this)
-
-  prependRight: (item) ->
-    @rightPanel.append(item)
+{$} = require 'atom-space-pen-views'
 
 describe "EncodingSelector", ->
   [editor, editorView] =  []
 
   beforeEach ->
-    atom.workspaceView = new WorkspaceView
+    jasmine.attachToDOM(atom.views.getView(atom.workspace))
+
+    waitsForPromise ->
+      atom.packages.activatePackage('status-bar')
 
     waitsForPromise ->
       atom.packages.activatePackage('encoding-selector')
@@ -25,20 +17,20 @@ describe "EncodingSelector", ->
       atom.workspace.open('sample.js')
 
     runs ->
-      editorView = atom.workspaceView.getActiveView()
-      {editor} = editorView
+      editor = atom.workspace.getActiveTextEditor()
+      editorView = atom.views.getView(editor)
 
   describe "when encoding-selector:show is triggered", ->
     it "displays a list of all the available encodings", ->
-      editorView.trigger 'encoding-selector:show'
-      encodingView = atom.workspaceView.find('.encoding-selector').view()
+      atom.commands.dispatch(editorView, 'encoding-selector:show')
+      encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
       expect(encodingView).toExist()
       expect(encodingView.list.children('li').length).toBeGreaterThan 1
 
   describe "when an encoding is selected", ->
     it "sets the new encoding on the editor", ->
-      editorView.trigger 'encoding-selector:show'
-      encodingView = atom.workspaceView.find('.encoding-selector').view()
+      atom.commands.dispatch(editorView, 'encoding-selector:show')
+      encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
       encodingView.confirmed(id: 'utf16le')
       expect(editor.getEncoding()).toBe 'utf16le'
 
@@ -52,8 +44,8 @@ describe "EncodingSelector", ->
         encodingChangeHandler.callCount is 1
 
       runs ->
-        editorView.trigger 'encoding-selector:show'
-        encodingView = atom.workspaceView.find('.encoding-selector').view()
+        atom.commands.dispatch(editorView, 'encoding-selector:show')
+        encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
         encodingView.confirmed(id: 'detect')
         encodingChangeHandler.reset()
 
@@ -67,22 +59,14 @@ describe "EncodingSelector", ->
     [encodingStatus] = []
 
     beforeEach ->
-      atom.workspaceView.statusBar = new StatusBarMock()
-      atom.workspaceView.statusBar.attach()
-      atom.packages.emit('activated')
-
-      [encodingStatus] = atom.workspaceView.statusBar.rightPanel.children()
-      expect(encodingStatus).toExist()
-
-    afterEach ->
-      atom.workspaceView.statusBar.remove()
-      atom.workspaceView.statusBar = null
+      runs ->
+        encodingStatus = document.querySelector('encoding-selector-status')
+        expect(encodingStatus).toExist()
 
     it "displays the name of the current encoding", ->
       expect(encodingStatus.encodingLink.textContent).toBe 'UTF-8'
 
     it "hides the label when the current encoding is null", ->
-      atom.workspaceView.attachToDom()
       spyOn(editor, 'getEncoding').andReturn null
       editor.setEncoding('utf16le')
 
@@ -97,7 +81,7 @@ describe "EncodingSelector", ->
     describe "when clicked", ->
       it "toggles the encoding-selector:show event", ->
         eventHandler = jasmine.createSpy('eventHandler')
-        atom.workspaceView.on 'encoding-selector:show', eventHandler
+        atom.commands.add('atom-text-editor', 'encoding-selector:show', eventHandler)
         encodingStatus.click()
         expect(eventHandler).toHaveBeenCalled()
 

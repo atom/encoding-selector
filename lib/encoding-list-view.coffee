@@ -1,29 +1,15 @@
 fs = require 'fs'
-{SelectListView} = require 'atom'
+{SelectListView} = require 'atom-space-pen-views'
 
 # View to display a list of encodings to use in the current editor.
 module.exports =
 class EncodingListView extends SelectListView
-  initialize: (@editor, encodings) ->
+  initialize: (@editor, @encodings) ->
     super
 
-    @addClass('encoding-selector from-top overlay')
+    @panel = atom.workspace.addModalPanel(item: this, visible: false)
+    @addClass('encoding-selector')
     @list.addClass('mark-active')
-
-    @currentEncoding = @editor.getEncoding()
-
-    @subscribe this, 'encoding-selector:show', =>
-      @cancel()
-      false
-
-    encodingItems = []
-
-    if fs.existsSync(@editor.getPath())
-      encodingItems.push({id: 'detect', name: 'Auto Detect'})
-
-    for id, names of encodings
-      encodingItems.push({id, name: names.list})
-    @setItems(encodingItems)
 
   getFilterKey: ->
     'name'
@@ -51,6 +37,18 @@ class EncodingListView extends SelectListView
       encoding = encoding.toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, '')
       @editor.setEncoding(encoding)
 
+  toggle: ->
+    if @panel.isVisible()
+      @cancel()
+    else
+      @attach()
+
+  destroy: ->
+    @panel.destroy()
+
+  cancelled: ->
+    @panel.hide()
+
   confirmed: (encoding) ->
     @cancel()
 
@@ -59,7 +57,19 @@ class EncodingListView extends SelectListView
     else
       @editor.setEncoding(encoding.id)
 
+  addEncodings: ->
+    @currentEncoding = @editor.getEncoding()
+    encodingItems = []
+
+    if fs.existsSync(@editor.getPath())
+      encodingItems.push({id: 'detect', name: 'Auto Detect'})
+
+    for id, names of @encodings
+      encodingItems.push({id, name: names.list})
+    @setItems(encodingItems)
+
   attach: ->
     @storeFocusedElement()
-    atom.workspaceView.append(this)
+    @addEncodings()
+    @panel.show()
     @focusFilterEditor()

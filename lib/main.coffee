@@ -1,27 +1,42 @@
+encodingListView = null
 encodingStatusView = null
+commandSubscription = null
 
 module.exports =
   activate: ->
-    atom.workspaceView.command('encoding-selector:show', createEncodingListView)
-    atom.packages.once('activated', createEncodingStatusView)
+    commandSubscription = atom.commands.add('atom-text-editor', 'encoding-selector:show', createEncodingListView)
+
+    if statusBar = document.querySelector('status-bar')
+      createEncodingStatusView(statusBar)
+    else
+      atom.packages.onDidActivateAll ->
+        if statusBar = document.querySelector('status-bar')
+          createEncodingStatusView(statusBar)
 
   deactivate: ->
+    commandSubscription?.dispose()
+    commandSubscription = null
+
     encodingStatusView?.destroy()
+    encodingStatusView = null
+
+    encodingListView?.destroy()
+    encodingListView = null
 
 createEncodingListView = ->
-  editor = atom.workspace.getActiveEditor()
-  if editor?
-    EncodingListView = require './encoding-list-view'
-    view = new EncodingListView(editor, encodings)
-    view.attach()
+  editor = atom.workspace.getActiveTextEditor()
+  return unless editor?
 
-createEncodingStatusView = ->
-  {statusBar} = atom.workspaceView
-  if statusBar?
-    EncodingStatusView = require './encoding-status-view'
-    encodingStatusView = new EncodingStatusView()
-    encodingStatusView.initialize(statusBar, encodings)
-    encodingStatusView.attach()
+  unless encodingListView?
+    EncodingListView = require './encoding-list-view'
+    encodingListView = new EncodingListView(editor, encodings)
+  encodingListView.toggle()
+
+createEncodingStatusView = (statusBar) ->
+  EncodingStatusView = require './encoding-status-view'
+  encodingStatusView = new EncodingStatusView()
+  encodingStatusView.initialize(statusBar, encodings)
+  encodingStatusView.attach()
 
 encodings =
   utf8:
