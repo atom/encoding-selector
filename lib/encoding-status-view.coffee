@@ -15,8 +15,8 @@ class EncodingStatusView extends HTMLDivElement
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
       @subscribeToActiveTextEditor()
 
-    clickHandler = ->
-      atom.commands.dispatch(atom.views.getView(atom.workspace), 'encoding-selector:show')
+    clickHandler = =>
+      atom.commands.dispatch(atom.views.getView(@getActiveTextEditor()), 'encoding-selector:show')
       false
     @addEventListener('click', clickHandler)
     @clickSubscription = dispose: => @removeEventListener('click', clickHandler)

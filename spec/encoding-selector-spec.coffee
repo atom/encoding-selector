@@ -81,7 +81,7 @@ describe "EncodingSelector", ->
     describe "when clicked", ->
       it "toggles the encoding-selector:show event", ->
         eventHandler = jasmine.createSpy('eventHandler')
-        atom.commands.add('atom-workspace', 'encoding-selector:show', eventHandler)
+        atom.commands.add('atom-text-editor', 'encoding-selector:show', eventHandler)
         encodingStatus.click()
         expect(eventHandler).toHaveBeenCalled()
 
