@@ -3,7 +3,13 @@ encodingStatusView = null
 module.exports =
   activate: ->
     atom.workspaceView.command('encoding-selector:show', createEncodingListView)
-    atom.packages.once('activated', createEncodingStatusView)
+
+    if statusBar = document.querySelector('status-bar')
+      createEncodingStatusView(statusBar)
+    else
+      atom.packages.onDidActivateAll ->
+        if statusBar = document.querySelector('status-bar')
+          createEncodingStatusView(statusBar)
 
   deactivate: ->
     encodingStatusView?.destroy()
@@ -15,13 +21,11 @@ createEncodingListView = ->
     view = new EncodingListView(editor, encodings)
     view.attach()
 
-createEncodingStatusView = ->
-  {statusBar} = atom.workspaceView
-  if statusBar?
-    EncodingStatusView = require './encoding-status-view'
-    encodingStatusView = new EncodingStatusView()
-    encodingStatusView.initialize(statusBar, encodings)
-    encodingStatusView.attach()
+createEncodingStatusView = (statusBar) ->
+  EncodingStatusView = require './encoding-status-view'
+  encodingStatusView = new EncodingStatusView()
+  encodingStatusView.initialize(statusBar, encodings)
+  encodingStatusView.attach()
 
 encodings =
   utf8:

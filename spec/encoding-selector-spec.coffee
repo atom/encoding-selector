@@ -1,22 +1,14 @@
 path = require 'path'
 {$, WorkspaceView, View} = require 'atom'
 
-class StatusBarMock extends View
-  @content: ->
-    @div class: 'status-bar tool-panel panel-bottom', =>
-      @div outlet: 'rightPanel', class: 'status-bar-right'
-
-  attach: ->
-    atom.workspaceView.appendToTop(this)
-
-  prependRight: (item) ->
-    @rightPanel.append(item)
-
 describe "EncodingSelector", ->
   [editor, editorView] =  []
 
   beforeEach ->
-    atom.workspaceView = new WorkspaceView
+    jasmine.attachToDOM(atom.views.getView(atom.workspace))
+
+    waitsForPromise ->
+      atom.packages.activatePackage('status-bar')
 
     waitsForPromise ->
       atom.packages.activatePackage('encoding-selector')
@@ -25,8 +17,8 @@ describe "EncodingSelector", ->
       atom.workspace.open('sample.js')
 
     runs ->
-      editorView = atom.workspaceView.getActiveView()
-      {editor} = editorView
+      editor = atom.workspace.getActiveTextEditor()
+      editorView = atom.views.getView(editor)
 
   describe "when encoding-selector:show is triggered", ->
     it "displays a list of all the available encodings", ->
@@ -67,16 +59,9 @@ describe "EncodingSelector", ->
     [encodingStatus] = []
 
     beforeEach ->
-      atom.workspaceView.statusBar = new StatusBarMock()
-      atom.workspaceView.statusBar.attach()
-      atom.packages.emit('activated')
-
-      [encodingStatus] = atom.workspaceView.statusBar.rightPanel.children()
-      expect(encodingStatus).toExist()
-
-    afterEach ->
-      atom.workspaceView.statusBar.remove()
-      atom.workspaceView.statusBar = null
+      runs ->
+        encodingStatus = document.querySelector('encoding-selector-status')
+        expect(encodingStatus).toExist()
 
     it "displays the name of the current encoding", ->
       expect(encodingStatus.encodingLink.textContent).toBe 'UTF-8'
