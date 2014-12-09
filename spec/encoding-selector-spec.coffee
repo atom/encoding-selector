@@ -1,5 +1,5 @@
 path = require 'path'
-{$, WorkspaceView, View} = require 'atom'
+{$} = require 'atom-space-pen-views'
 
 describe "EncodingSelector", ->
   [editor, editorView] =  []
