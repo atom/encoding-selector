@@ -15,7 +15,7 @@ module.exports =
     encodingStatusView?.destroy()
 
 createEncodingListView = ->
-  editor = atom.workspace.getActiveEditor()
+  editor = atom.workspace.getActiveTextEditor()
   if editor?
     EncodingListView = require './encoding-list-view'
     view = new EncodingListView(editor, encodings)
