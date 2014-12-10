@@ -4,7 +4,7 @@ fs = require 'fs'
 # View to display a list of encodings to use in the current editor.
 module.exports =
 class EncodingListView extends SelectListView
-  initialize: (@editor, @encodings) ->
+  initialize: (@encodings) ->
     super
 
     @panel = atom.workspace.addModalPanel(item: this, visible: false)
@@ -40,7 +40,7 @@ class EncodingListView extends SelectListView
   toggle: ->
     if @panel.isVisible()
       @cancel()
-    else
+    else if @editor = atom.workspace.getActiveTextEditor()
       @attach()
 
   destroy: ->

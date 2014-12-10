@@ -24,12 +24,9 @@ module.exports =
     encodingListView = null
 
 createEncodingListView = ->
-  editor = atom.workspace.getActiveTextEditor()
-  return unless editor?
-
   unless encodingListView?
     EncodingListView = require './encoding-list-view'
-    encodingListView = new EncodingListView(editor, encodings)
+    encodingListView = new EncodingListView(encodings)
   encodingListView.toggle()
 
 createEncodingStatusView = (statusBar) ->
