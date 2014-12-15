@@ -9,7 +9,7 @@ class EncodingStatusView extends HTMLDivElement
     @handleEvents()
 
   attach: ->
-    @statusBar.prependRight(this)
+    @tile = @statusBar.addRightTile(priority: -2, item: this)
 
   handleEvents: ->
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
@@ -28,7 +28,7 @@ class EncodingStatusView extends HTMLDivElement
     @encodingSubscription?.dispose()
     @clickSubscription?.dispose()
     @configSubscription?.off()
-    @remove()
+    @tile?.destroy()
 
   getActiveTextEditor: ->
     atom.workspace.getActiveTextEditor()
