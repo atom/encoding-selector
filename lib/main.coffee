@@ -9,7 +9,7 @@ module.exports =
     if statusBar = document.querySelector('status-bar')
       createEncodingStatusView(statusBar)
     else
-      atom.packages.onDidActivateAll ->
+      atom.packages.onDidActivateInitialPackages ->
         if statusBar = document.querySelector('status-bar')
           createEncodingStatusView(statusBar)
 
