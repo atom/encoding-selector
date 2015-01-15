@@ -1,8 +1,8 @@
-'.platform-darwin .editor':
+'.platform-darwin atom-text-editor':
   'ctrl-shift-u': 'encoding-selector:show'
 
-'.platform-win32 .editor':
+'.platform-win32 atom-text-editor':
   'ctrl-shift-u': 'encoding-selector:show'
 
-'.platform-linux .editor':
+'.platform-linux atom-text-editor':
   'ctrl-u': 'encoding-selector:show'
