@@ -7,7 +7,7 @@
 ]
 
 'context-menu':
-  'atom-text-editor': [
+  'atom-text-editor:not([mini])': [
     'label': 'Change Encoding'
     'command': 'encoding-selector:show'
   ]
