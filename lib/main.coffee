@@ -80,9 +80,9 @@ encodings =
   windows1251:
     list: 'Cyrillic (Windows 1251)'
     status: 'Windows 1251'
-  windows866:
-    list: 'Cyrillic (Windows 866)'
-    status: 'Windows 866'
+  cp866:
+    list: 'Cyrillic (CP 866)'
+    status: 'CP 866'
   iso88595:
     list: 'Cyrillic (ISO 8859-5)'
     status: 'ISO 8859-5'
