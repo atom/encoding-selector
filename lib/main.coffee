@@ -137,6 +137,9 @@ encodings =
   shiftjis:
     list: 'Japanese (Shift JIS)'
     status: 'Shift JIS'
+  cp932:
+    list: 'Japanese (CP 932)'
+    status: 'CP 932'
   eucjp:
     list: 'Japanese (EUC-JP)'
     status: 'EUC-JP'
