@@ -1,4 +1,3 @@
-path = require 'path'
 {$} = require 'atom-space-pen-views'
 
 describe "EncodingSelector", ->
