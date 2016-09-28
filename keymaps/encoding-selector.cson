@@ -5,4 +5,4 @@
   'ctrl-shift-u': 'encoding-selector:show'
 
 '.platform-linux atom-text-editor':
-  'alt-u': 'encoding-selector:show'
+  'ctrl-shift-u': 'encoding-selector:show'
