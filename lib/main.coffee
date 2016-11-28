@@ -56,6 +56,9 @@ encodings =
   cp437:
     list: 'DOS (CP 437)'
     status: 'CP437'
+  cp850:
+    list: 'DOS (CP 850)'
+    status: 'CP850'
   windows1256:
     list: 'Arabic (Windows 1256)'
     status: 'Windows 1256'
