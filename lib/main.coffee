@@ -1,4 +1,5 @@
 EncodingListView = require './encoding-list-view'
+EncodingStatusView = require './encoding-status-view'
 
 encodingListView = null
 encodingStatusView = null
@@ -19,9 +20,7 @@ module.exports =
     encodingListView = null
 
   consumeStatusBar: (statusBar) ->
-    EncodingStatusView = require './encoding-status-view'
-    encodingStatusView = new EncodingStatusView()
-    encodingStatusView.initialize(statusBar, encodings)
+    encodingStatusView = new EncodingStatusView(statusBar, encodings)
     encodingStatusView.attach()
 
 toggleEncodingListView = ->

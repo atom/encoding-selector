@@ -71,24 +71,25 @@ describe "EncodingSelector", ->
     [encodingStatus] = []
 
     beforeEach ->
-      runs ->
-        encodingStatus = document.querySelector('encoding-selector-status')
-        expect(encodingStatus).toExist()
+      waitsFor ->
+        encodingStatus = document.querySelector('.encoding-status')
+        encodingStatus.offsetHeight > 0
 
     it "displays the name of the current encoding", ->
-      expect(encodingStatus.encodingLink.textContent).toBe 'UTF-8'
+      expect(encodingStatus.querySelector('a').textContent).toBe 'UTF-8'
 
     it "hides the label when the current encoding is null", ->
       spyOn(editor, 'getEncoding').andReturn null
       editor.setEncoding('utf16le')
-
-      expect(encodingStatus).toBeHidden()
+      waitsFor ->
+        encodingStatus.offsetHeight is 0
 
     describe "when the editor's encoding changes", ->
       it "displays the new encoding of the editor", ->
-        expect(encodingStatus.encodingLink.textContent).toBe 'UTF-8'
+        expect(encodingStatus.querySelector('a').textContent).toBe 'UTF-8'
         editor.setEncoding('utf16le')
-        expect(encodingStatus.encodingLink.textContent).toBe 'UTF-16 LE'
+        waitsFor ->
+          encodingStatus.querySelector('a').textContent is 'UTF-16 LE'
 
     describe "when clicked", ->
       it "toggles the encoding-selector:show event", ->
