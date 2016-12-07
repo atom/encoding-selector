@@ -21,22 +21,6 @@ class EncodingListView extends SelectListView
     element.dataset.encoding = encoding.id
     element
 
-  detectEncoding: ->
-    filePath = @editor.getPath()
-    return unless fs.existsSync(filePath)
-
-    jschardet = require 'jschardet'
-    iconv = require 'iconv-lite'
-    fs.readFile filePath, (error, buffer) =>
-      return if error?
-
-      {encoding} =  jschardet.detect(buffer) ? {}
-      encoding = 'utf8' if encoding is 'ascii'
-      return unless iconv.encodingExists(encoding)
-
-      encoding = encoding.toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, '')
-      @editor.setEncoding(encoding)
-
   toggle: ->
     if @panel.isVisible()
       @cancel()
@@ -53,7 +37,7 @@ class EncodingListView extends SelectListView
     @cancel()
 
     if encoding.id is 'detect'
-      @detectEncoding()
+      @editor.detectEncoding()
     else
       @editor.setEncoding(encoding.id)
 
