@@ -22,16 +22,24 @@ describe "EncodingSelector", ->
   describe "when encoding-selector:show is triggered", ->
     it "displays a list of all the available encodings", ->
       atom.commands.dispatch(editorView, 'encoding-selector:show')
-      encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
-      expect(encodingView).toExist()
-      expect(encodingView.list.children('li').length).toBeGreaterThan 1
+
+      waitsFor ->
+        document.body.querySelector('.encoding-selector')
+
+      runs ->
+        expect(document.body.querySelectorAll('.encoding-selector li').length).toBeGreaterThan(1)
 
   describe "when an encoding is selected", ->
     it "sets the new encoding on the editor", ->
       atom.commands.dispatch(editorView, 'encoding-selector:show')
-      encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
-      encodingView.confirmed(id: 'utf16le')
-      expect(editor.getEncoding()).toBe 'utf16le'
+
+      waitsFor ->
+        document.body.querySelector('.encoding-selector')
+
+      runs ->
+        encodingListView = atom.workspace.getModalPanels()[0].getItem()
+        encodingListView.props.didConfirmSelection({id: 'utf16le'})
+        expect(editor.getEncoding()).toBe 'utf16le'
 
   describe "when Auto Detect is selected", ->
     it "detects the character set and applies that encoding", ->
@@ -44,8 +52,13 @@ describe "EncodingSelector", ->
 
       runs ->
         atom.commands.dispatch(editorView, 'encoding-selector:show')
-        encodingView = $(atom.views.getView(atom.workspace)).find('.encoding-selector').view()
-        encodingView.confirmed(id: 'detect')
+
+      waitsFor ->
+        document.body.querySelector('.encoding-selector')
+
+      runs ->
+        encodingListView = atom.workspace.getModalPanels()[0].getItem()
+        encodingListView.props.didConfirmSelection({id: 'detect'})
         encodingChangeHandler.reset()
 
       waitsFor ->
@@ -58,24 +71,25 @@ describe "EncodingSelector", ->
     [encodingStatus] = []
 
     beforeEach ->
-      runs ->
-        encodingStatus = document.querySelector('encoding-selector-status')
-        expect(encodingStatus).toExist()
+      waitsFor ->
+        encodingStatus = document.querySelector('.encoding-status')
+        encodingStatus.offsetHeight > 0
 
     it "displays the name of the current encoding", ->
-      expect(encodingStatus.encodingLink.textContent).toBe 'UTF-8'
+      expect(encodingStatus.querySelector('a').textContent).toBe 'UTF-8'
 
     it "hides the label when the current encoding is null", ->
       spyOn(editor, 'getEncoding').andReturn null
       editor.setEncoding('utf16le')
-
-      expect(encodingStatus).toBeHidden()
+      waitsFor ->
+        encodingStatus.offsetHeight is 0
 
     describe "when the editor's encoding changes", ->
       it "displays the new encoding of the editor", ->
-        expect(encodingStatus.encodingLink.textContent).toBe 'UTF-8'
+        expect(encodingStatus.querySelector('a').textContent).toBe 'UTF-8'
         editor.setEncoding('utf16le')
-        expect(encodingStatus.encodingLink.textContent).toBe 'UTF-16 LE'
+        waitsFor ->
+          encodingStatus.querySelector('a').textContent is 'UTF-16 LE'
 
     describe "when clicked", ->
       it "toggles the encoding-selector:show event", ->

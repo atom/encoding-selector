@@ -1,10 +1,13 @@
+EncodingListView = require './encoding-list-view'
+EncodingStatusView = require './encoding-status-view'
+
 encodingListView = null
 encodingStatusView = null
 commandSubscription = null
 
 module.exports =
   activate: ->
-    commandSubscription = atom.commands.add('atom-text-editor', 'encoding-selector:show', createEncodingListView)
+    commandSubscription = atom.commands.add('atom-text-editor', 'encoding-selector:show', toggleEncodingListView)
 
   deactivate: ->
     commandSubscription?.dispose()
@@ -17,15 +20,11 @@ module.exports =
     encodingListView = null
 
   consumeStatusBar: (statusBar) ->
-    EncodingStatusView = require './encoding-status-view'
-    encodingStatusView = new EncodingStatusView()
-    encodingStatusView.initialize(statusBar, encodings)
+    encodingStatusView = new EncodingStatusView(statusBar, encodings)
     encodingStatusView.attach()
 
-createEncodingListView = ->
-  unless encodingListView?
-    EncodingListView = require './encoding-list-view'
-    encodingListView = new EncodingListView(encodings)
+toggleEncodingListView = ->
+  encodingListView ?= new EncodingListView(encodings)
   encodingListView.toggle()
 
 encodings =
