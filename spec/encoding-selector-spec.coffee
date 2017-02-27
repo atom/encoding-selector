@@ -1,5 +1,3 @@
-{$} = require 'atom-space-pen-views'
-
 describe "EncodingSelector", ->
   [editor, editorView] =  []
 
