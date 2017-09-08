@@ -1,6 +1,6 @@
 {
   "name": "encoding-selector",
-  "version": "0.23.4",
+  "version": "0.23.5",
   "main": "./lib/main",
   "description": "Select the encoding to use for the current editor with `ctrl-shift-U`.",
   "license": "MIT",
