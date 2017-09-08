@@ -98,6 +98,7 @@ describe "EncodingSelector", ->
 
     describe "when the package is deactivated", ->
       it "removes the view", ->
-        atom.packages.deactivatePackage('encoding-selector')
-
-        expect(encodingStatus.parentElement).toBeNull()
+        waitsForPromise ->
+          Promise.resolve(atom.packages.deactivatePackage('encoding-selector'))
+        runs ->
+          expect(encodingStatus.parentElement).toBeNull()
