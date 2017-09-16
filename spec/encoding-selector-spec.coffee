@@ -74,7 +74,11 @@ describe "EncodingSelector", ->
         encodingStatus.offsetHeight > 0
 
     it "displays the name of the current encoding", ->
-      expect(encodingStatus.querySelector('a').textContent).toBe 'UTF-8'
+      waitsFor ->
+        encodingStatus.querySelector('a').textContent.length isnt 0
+
+      runs ->
+        expect(encodingStatus.querySelector('a').textContent).toBe 'UTF-8'
 
     it "hides the label when the current encoding is null", ->
       spyOn(editor, 'getEncoding').andReturn null
