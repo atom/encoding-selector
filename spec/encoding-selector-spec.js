@@ -1,93 +1,93 @@
+const SelectList = require('atom-select-list')
+const {it, fit, ffit, beforeEach, afterEach} = require('./async-spec-helpers')
+
 describe('EncodingSelector', () => {
   let editor
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jasmine.attachToDOM(atom.views.getView(atom.workspace))
 
-    waitsForPromise(() => atom.packages.activatePackage('status-bar'))
+    await atom.packages.activatePackage('status-bar')
+    await atom.packages.activatePackage('encoding-selector')
+    editor = await atom.workspace.open('sample.js')
+  })
 
-    waitsForPromise(() => atom.packages.activatePackage('encoding-selector'))
-
-    waitsForPromise(() => atom.workspace.open('sample.js'))
-
-    runs(() => {
-      editor = atom.workspace.getActiveTextEditor()
-    })
+  afterEach(async () => {
+    await atom.packages.deactivatePackage('encoding-selector')
   })
 
   describe('when encoding-selector:show is triggered', () => {
-    it('displays a list of all the available encodings', () => {
+    it('displays a list of all the available encodings', async () => {
       atom.commands.dispatch(editor.getElement(), 'encoding-selector:show')
+      await SelectList.getScheduler().getNextUpdatePromise()
 
-      waitsFor(() => document.body.querySelector('.encoding-selector'))
-
-      runs(() => expect(document.body.querySelectorAll('.encoding-selector li').length).toBeGreaterThan(1))
+      expect(document.body.querySelectorAll('.encoding-selector li').length).toBeGreaterThan(1)
     })
   })
 
   describe('when an encoding is selected', () => {
-    it('sets the new encoding on the editor', () => {
+    it('sets the new encoding on the editor', async () => {
       atom.commands.dispatch(editor.getElement(), 'encoding-selector:show')
+      await SelectList.getScheduler().getNextUpdatePromise()
 
-      waitsFor(() => document.body.querySelector('.encoding-selector'))
-
-      runs(() => {
-        const encodingListView = atom.workspace.getModalPanels()[0].getItem()
-        encodingListView.props.didConfirmSelection({id: 'utf16le'})
-        expect(editor.getEncoding()).toBe('utf16le')
-      })
+      const encodingListView = atom.workspace.getModalPanels()[0].getItem()
+      encodingListView.props.didConfirmSelection({id: 'utf16le'})
+      expect(editor.getEncoding()).toBe('utf16le')
     })
   })
 
   describe('when Auto Detect is selected', () => {
-    it('detects the character set and applies that encoding', () => {
+    it('detects the character set and applies that encoding', async () => {
       const encodingChangeHandler = jasmine.createSpy('encodingChangeHandler')
       editor.onDidChangeEncoding(encodingChangeHandler)
+
       editor.setEncoding('utf16le')
+      expect(encodingChangeHandler.callCount).toBe(1)
 
-      waitsFor(() => encodingChangeHandler.callCount === 1)
+      atom.commands.dispatch(editor.getElement(), 'encoding-selector:show')
+      await SelectList.getScheduler().getNextUpdatePromise()
 
-      runs(() => atom.commands.dispatch(editor.getElement(), 'encoding-selector:show'))
-
-      waitsFor(() => document.body.querySelector('.encoding-selector'))
-
-      runs(() => {
-        const encodingListView = atom.workspace.getModalPanels()[0].getItem()
-        encodingListView.props.didConfirmSelection({id: 'detect'})
-        encodingChangeHandler.reset()
+      const encodingListView = atom.workspace.getModalPanels()[0].getItem()
+      encodingListView.props.didConfirmSelection({id: 'detect'})
+      await new Promise(resolve => {
+        encodingChangeHandler.andCallFake(() => {
+          expect(editor.getEncoding()).toBe('utf8')
+          resolve()
+        })
       })
-
-      waitsFor(() => encodingChangeHandler.callCount === 1)
-
-      runs(() => expect(editor.getEncoding()).toBe('utf8'))
     })
   })
 
   describe('encoding label', () => {
     let encodingStatus
 
-    beforeEach(() => {
-      waitsFor(() => {
+    beforeEach(async () => {
+      encodingStatus = document.querySelector('.encoding-status')
+
+      // Wait for status bar service hook to fire
+      while (!encodingStatus || !encodingStatus.textContent) {
+        await atom.views.getNextUpdatePromise()
         encodingStatus = document.querySelector('.encoding-status')
-        return encodingStatus.offsetHeight > 0
-      })
+      }
     })
 
     it('displays the name of the current encoding', () => {
       expect(encodingStatus.querySelector('a').textContent).toBe('UTF-8')
     })
 
-    it('hides the label when the current encoding is null', () => {
+    it('hides the label when the current encoding is null', async () => {
       spyOn(editor, 'getEncoding').andReturn(null)
       editor.setEncoding('utf16le')
-      waitsFor(() => encodingStatus.offsetHeight === 0)
+      await atom.views.getNextUpdatePromise()
+      expect(encodingStatus.offsetHeight).toBe(0)
     })
 
     describe("when the editor's encoding changes", () => {
-      it('displays the new encoding of the editor', () => {
+      it('displays the new encoding of the editor', async () => {
         expect(encodingStatus.querySelector('a').textContent).toBe('UTF-8')
         editor.setEncoding('utf16le')
-        waitsFor(() => encodingStatus.querySelector('a').textContent === 'UTF-16 LE')
+        await atom.views.getNextUpdatePromise()
+        expect(encodingStatus.querySelector('a').textContent).toBe('UTF-16 LE')
       })
     })
 
@@ -101,9 +101,9 @@ describe('EncodingSelector', () => {
     })
 
     describe('when the package is deactivated', () => {
-      it('removes the view', () => {
-        waitsForPromise(() => Promise.resolve(atom.packages.deactivatePackage('encoding-selector')))
-        runs(() => expect(encodingStatus.parentElement).toBeNull())
+      it('removes the view', async () => {
+        await atom.packages.deactivatePackage('encoding-selector')
+        expect(encodingStatus.parentElement).toBeNull()
       })
     })
   })
