@@ -21,6 +21,17 @@
     }
   },
   "devDependencies": {
-    "coffeelint": "^1.9.7"
+    "standard": "^10.0.3"
+  },
+  "standard": {
+    "globals": [
+      "atom",
+      "beforeEach",
+      "describe",
+      "expect",
+      "it",
+      "jasmine",
+      "spyOn"
+    ]
   }
 }
