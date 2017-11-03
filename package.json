@@ -1,6 +1,6 @@
 {
   "name": "encoding-selector",
-  "version": "0.23.4",
+  "version": "0.23.7",
   "main": "./lib/main",
   "description": "Select the encoding to use for the current editor with `ctrl-shift-U`.",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "atom": ">=0.141.0"
   },
   "dependencies": {
-    "atom-select-list": "^0.1.0"
+    "atom-select-list": "^0.3.2"
   },
   "consumedServices": {
     "status-bar": {
@@ -19,6 +19,17 @@
     }
   },
   "devDependencies": {
-    "coffeelint": "^1.9.7"
+    "standard": "^10.0.3"
+  },
+  "standard": {
+    "globals": [
+      "atom",
+      "beforeEach",
+      "describe",
+      "expect",
+      "it",
+      "jasmine",
+      "spyOn"
+    ]
   }
 }

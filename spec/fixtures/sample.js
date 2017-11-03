@@ -1,1 +1,1 @@
-var foo = 'bar';
+exports.foo = 'bar'
