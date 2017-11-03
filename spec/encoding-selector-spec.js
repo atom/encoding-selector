@@ -38,6 +38,10 @@ describe('EncodingSelector', () => {
 
   describe('when Auto Detect is selected', () => {
     it('detects the character set and applies that encoding', async () => {
+      // TODO: Remove typeof check once editor.detectEncoding ships
+      // https://github.com/atom/atom/pull/13943
+      if (typeof editor.detectEncoding !== 'function') return
+
       const encodingChangeHandler = jasmine.createSpy('encodingChangeHandler')
       editor.onDidChangeEncoding(encodingChangeHandler)
 
