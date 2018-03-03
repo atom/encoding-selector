@@ -33,5 +33,38 @@
       "jasmine",
       "spyOn"
     ]
+  },
+  "configSchema": {
+    "alwaysAutoDetect": {
+      "title": "Always auto detect",
+      "description": "enabled from startup",
+      "type": "boolean",
+      "default": false
+    },
+    "disallowEncTypes": {
+      "title": "Disallow some encoding types",
+      "description": "example: windows1252, iso88591",
+      "type": "string",
+      "default": ""
+    },
+    "divideSize": {
+      "title": "Divide Buffer Size",
+      "description": "The number of the consideration.",
+      "type": "number",
+      "default": 1,
+      "minimum": 1
+    },
+    "ignorePattern": {
+      "title": "Ignore Pattern",
+      "description": "example: (txt|js)$",
+      "type": "string",
+      "default": ""
+    },
+    "forceEncTypes": {
+      "title": "Force some encoding types",
+      "description": "example: windows1252:windows1251, iso88591:windows1251",
+      "type": "string",
+      "default": ""
+    }
   }
 }
