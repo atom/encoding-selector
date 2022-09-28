@@ -1,4 +1,5 @@
-# Encoding Selector package
+##### Atom and all repositories under Atom will be archived on December 15, 2022. Learn more in our [official announcement](https://github.blog/2022-06-08-sunsetting-atom/)
+ # Encoding Selector package
 [![OS X Build Status](https://travis-ci.org/atom/encoding-selector.svg?branch=master)](https://travis-ci.org/atom/encoding-selector) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/e08x6k2b68wpwxxc/branch/master?svg=true)](https://ci.appveyor.com/project/Atom/encoding-selector/branch/master) [![Dependency Status](https://david-dm.org/atom/encoding-selector.svg)](https://david-dm.org/atom/encoding-selector)
 
 Pick the encoding in the editor using <kbd>ctrl-shift-U</kbd> or by clicking the current encoding name in the status bar.
